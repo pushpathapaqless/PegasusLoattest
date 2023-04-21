@@ -1,15 +1,11 @@
 
-import java.time.Duration
+import scala.concurrent.duration._
 
-import io.gatling.javaapi.core.*
-import io.gatling.javaapi.http.*
-import io.gatling.javaapi.jdbc.*
+import io.gatling.core.Predef._
+import io.gatling.http.Predef._
+import io.gatling.jdbc.Predef._
 
-import io.gatling.javaapi.core.CoreDsl.*
-import io.gatling.javaapi.http.HttpDsl.*
-import io.gatling.javaapi.jdbc.JdbcDsl.*
-
-class UpdateVisitDetails : Simulation() {
+class UpdateVisitDetails extends Simulation {
 
   private val httpProtocol = http
     .baseUrl("https://apps-api.staging.peg.qless.com")
@@ -20,52 +16,52 @@ class UpdateVisitDetails : Simulation() {
     .originHeader("https://console.staging.peg.qless.com")
     .userAgentHeader("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36")
   
-  private val headers_0 = mapOf(
-    "Accept" to "*/*",
-    "Access-Control-Request-Headers" to "authorization",
-    "Access-Control-Request-Method" to "GET",
-    "Sec-Fetch-Dest" to "empty",
-    "Sec-Fetch-Mode" to "cors",
-    "Sec-Fetch-Site" to "same-site"
+  private val headers_0 = Map(
+  		"Accept" -> "*/*",
+  		"Access-Control-Request-Headers" -> "authorization",
+  		"Access-Control-Request-Method" -> "GET",
+  		"Sec-Fetch-Dest" -> "empty",
+  		"Sec-Fetch-Mode" -> "cors",
+  		"Sec-Fetch-Site" -> "same-site"
   )
   
-  private val headers_1 = mapOf(
-    "Accept" to "*/*",
-    "Access-Control-Request-Headers" to "authorization,content-type",
-    "Access-Control-Request-Method" to "POST",
-    "Sec-Fetch-Dest" to "empty",
-    "Sec-Fetch-Mode" to "cors",
-    "Sec-Fetch-Site" to "same-site"
+  private val headers_1 = Map(
+  		"Accept" -> "*/*",
+  		"Access-Control-Request-Headers" -> "authorization,content-type",
+  		"Access-Control-Request-Method" -> "POST",
+  		"Sec-Fetch-Dest" -> "empty",
+  		"Sec-Fetch-Mode" -> "cors",
+  		"Sec-Fetch-Site" -> "same-site"
   )
   
-  private val headers_2 = mapOf(
-    "Content-Type" to "application/json",
-    "Sec-Fetch-Dest" to "empty",
-    "Sec-Fetch-Mode" to "cors",
-    "Sec-Fetch-Site" to "same-site",
-    "authorization" to "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNTkiLCJ1c2VybmFtZSI6ImFydGVtLmt1Y2h1a0BxbGVzcy5jb20iLCJhY2NvdW50X2lkIjoiQUNDNjJEMTE5MDBBNDhBNEE3MThDQTJDQkQyREE0RTAyMEJVU0VBU1QxIiwicHJvdmlkZXIiOiJRTEVTUyIsIm9yZ2FuaXphdGlvbl9pZCI6Ik9SR0JDNTJEN0U5MUYzRTQwNTE5NzNDRDlBNkNDNzRENEUxVVNFQVNUMSIsImlhdCI6MTY4MjAzNTE4OSwiZXhwIjoxNjgyODk5MTg5LCJzYWx0ZXItdXVpZCI6IjBjZTc5MTlkLTE5N2QtNDhhZi04NzhhLWJhMjg0ZTcxNWRjYSJ9.0AJakceBLtgWXuYE9fKqIm2BvRCBChEkotp-18poBqV6CsurREZUrLRksMHKq0djYnCyAHqIn-p0N2V8V19pqg",
-    "sec-ch-ua" to """Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99""",
-    "sec-ch-ua-mobile" to "?0",
-    "sec-ch-ua-platform" to "Windows"
+  private val headers_2 = Map(
+  		"Content-Type" -> "application/json",
+  		"Sec-Fetch-Dest" -> "empty",
+  		"Sec-Fetch-Mode" -> "cors",
+  		"Sec-Fetch-Site" -> "same-site",
+  		"authorization" -> "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNTkiLCJ1c2VybmFtZSI6ImFydGVtLmt1Y2h1a0BxbGVzcy5jb20iLCJhY2NvdW50X2lkIjoiQUNDNjJEMTE5MDBBNDhBNEE3MThDQTJDQkQyREE0RTAyMEJVU0VBU1QxIiwicHJvdmlkZXIiOiJRTEVTUyIsIm9yZ2FuaXphdGlvbl9pZCI6Ik9SR0JDNTJEN0U5MUYzRTQwNTE5NzNDRDlBNkNDNzRENEUxVVNFQVNUMSIsImlhdCI6MTY4MjAzNTE4OSwiZXhwIjoxNjgyODk5MTg5LCJzYWx0ZXItdXVpZCI6IjBjZTc5MTlkLTE5N2QtNDhhZi04NzhhLWJhMjg0ZTcxNWRjYSJ9.0AJakceBLtgWXuYE9fKqIm2BvRCBChEkotp-18poBqV6CsurREZUrLRksMHKq0djYnCyAHqIn-p0N2V8V19pqg",
+  		"sec-ch-ua" -> """Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99""",
+  		"sec-ch-ua-mobile" -> "?0",
+  		"sec-ch-ua-platform" -> "Windows"
   )
   
-  private val headers_3 = mapOf(
-    "Sec-Fetch-Dest" to "empty",
-    "Sec-Fetch-Mode" to "cors",
-    "Sec-Fetch-Site" to "same-site",
-    "authorization" to "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNTkiLCJ1c2VybmFtZSI6ImFydGVtLmt1Y2h1a0BxbGVzcy5jb20iLCJhY2NvdW50X2lkIjoiQUNDNjJEMTE5MDBBNDhBNEE3MThDQTJDQkQyREE0RTAyMEJVU0VBU1QxIiwicHJvdmlkZXIiOiJRTEVTUyIsIm9yZ2FuaXphdGlvbl9pZCI6Ik9SR0JDNTJEN0U5MUYzRTQwNTE5NzNDRDlBNkNDNzRENEUxVVNFQVNUMSIsImlhdCI6MTY4MjAzNTE4OSwiZXhwIjoxNjgyODk5MTg5LCJzYWx0ZXItdXVpZCI6IjBjZTc5MTlkLTE5N2QtNDhhZi04NzhhLWJhMjg0ZTcxNWRjYSJ9.0AJakceBLtgWXuYE9fKqIm2BvRCBChEkotp-18poBqV6CsurREZUrLRksMHKq0djYnCyAHqIn-p0N2V8V19pqg",
-    "sec-ch-ua" to """Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99""",
-    "sec-ch-ua-mobile" to "?0",
-    "sec-ch-ua-platform" to "Windows"
+  private val headers_3 = Map(
+  		"Sec-Fetch-Dest" -> "empty",
+  		"Sec-Fetch-Mode" -> "cors",
+  		"Sec-Fetch-Site" -> "same-site",
+  		"authorization" -> "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNTkiLCJ1c2VybmFtZSI6ImFydGVtLmt1Y2h1a0BxbGVzcy5jb20iLCJhY2NvdW50X2lkIjoiQUNDNjJEMTE5MDBBNDhBNEE3MThDQTJDQkQyREE0RTAyMEJVU0VBU1QxIiwicHJvdmlkZXIiOiJRTEVTUyIsIm9yZ2FuaXphdGlvbl9pZCI6Ik9SR0JDNTJEN0U5MUYzRTQwNTE5NzNDRDlBNkNDNzRENEUxVVNFQVNUMSIsImlhdCI6MTY4MjAzNTE4OSwiZXhwIjoxNjgyODk5MTg5LCJzYWx0ZXItdXVpZCI6IjBjZTc5MTlkLTE5N2QtNDhhZi04NzhhLWJhMjg0ZTcxNWRjYSJ9.0AJakceBLtgWXuYE9fKqIm2BvRCBChEkotp-18poBqV6CsurREZUrLRksMHKq0djYnCyAHqIn-p0N2V8V19pqg",
+  		"sec-ch-ua" -> """Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99""",
+  		"sec-ch-ua-mobile" -> "?0",
+  		"sec-ch-ua-platform" -> "Windows"
   )
   
-  private val headers_33 = mapOf(
-    "Accept" to "*/*",
-    "Access-Control-Request-Headers" to "authorization,content-type",
-    "Access-Control-Request-Method" to "PUT",
-    "Sec-Fetch-Dest" to "empty",
-    "Sec-Fetch-Mode" to "cors",
-    "Sec-Fetch-Site" to "same-site"
+  private val headers_33 = Map(
+  		"Accept" -> "*/*",
+  		"Access-Control-Request-Headers" -> "authorization,content-type",
+  		"Access-Control-Request-Method" -> "PUT",
+  		"Sec-Fetch-Dest" -> "empty",
+  		"Sec-Fetch-Mode" -> "cors",
+  		"Sec-Fetch-Site" -> "same-site"
   )
 
 
@@ -393,7 +389,7 @@ class UpdateVisitDetails : Simulation() {
           http("request_79")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/resources/visitors?phoneNumber=%2B13235648500")
             .headers(headers_3)
-            .check(status().shouldBe(404)),
+            .check(status.is(404)),
           http("request_80")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC040FFCD16C5547AF9B10E17B90333FDEUSEAST1/walkins/WLKIBB5828C69AC3424B86A6249CE576CC78USEAST1/fields")
             .headers(headers_33),
@@ -480,7 +476,5 @@ class UpdateVisitDetails : Simulation() {
         )
     )
 
-  init {
-	  setUp(scn.injectOpen(atOnceUsers(1))).protocols(httpProtocol)
-  }
+	setUp(scn.inject(atOnceUsers(1))).protocols(httpProtocol)
 }
