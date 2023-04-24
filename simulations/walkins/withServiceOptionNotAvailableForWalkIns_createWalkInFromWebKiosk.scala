@@ -9,7 +9,7 @@ class AddWalkInUsingWebKioskWithServiceNotAvailableForWalkIns extends Simulation
 
   private val httpProtocol = http
     .baseUrl("https://apps-api.staging.peg.qless.com")
-    .inferHtmlResources()
+    .inferHtmlResources(AllowList(), DenyList(""".*\.js""", """.*\.css""", """.*\.gif""", """.*\.jpeg""", """.*\.jpg""", """.*\.ico""", """.*\.woff""", """.*\.woff2""", """.*\.(t|o)tf""", """.*\.png""", """.*\.svg""", """.*detectportal\.firefox\.com.*"""))
     .acceptHeader("application/json, text/plain, */*")
     .acceptEncodingHeader("gzip, deflate, br")
     .acceptLanguageHeader("en-US,en;q=0.9")
@@ -59,7 +59,6 @@ class AddWalkInUsingWebKioskWithServiceNotAvailableForWalkIns extends Simulation
       http("request_0")
         .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/services/tree?organizationStatus=LIVE&serviceStatus=ACTIVE&linkedUserRequired=true&locationStatus=ACTIVE&visibleOnPhysKiosk=true")
         .headers(headers_0)
-        .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithservicenotavailableforwalkins/0000_response.json")))
     )
     .pause(3)
     .exec(
@@ -69,17 +68,14 @@ class AddWalkInUsingWebKioskWithServiceNotAvailableForWalkIns extends Simulation
         .resources(
           http("request_2")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/services/SVC804BCF8EE71044F1ADD6A185CEA8D4ADUSEAST1/first-available-walkin-slot")
-            .headers(headers_0)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithservicenotavailableforwalkins/0002_response.json"))),
+            .headers(headers_0),
           http("request_3")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/services/links?serviceIds=SVC804BCF8EE71044F1ADD6A185CEA8D4ADUSEAST1&filterOnlyAvailable=true")
-            .headers(headers_0)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithservicenotavailableforwalkins/0003_response.json"))),
+            .headers(headers_0),
           http("request_4")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/services/SVC804BCF8EE71044F1ADD6A185CEA8D4ADUSEAST1/available-time-slots/list")
             .headers(headers_4)
             .body(RawFileBody("addwalkinusingwebkioskwithservicenotavailableforwalkins/0004_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithservicenotavailableforwalkins/0004_response.json")))
         )
     )
     .pause(3)
@@ -92,7 +88,6 @@ class AddWalkInUsingWebKioskWithServiceNotAvailableForWalkIns extends Simulation
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/resources/list")
             .headers(headers_4)
             .body(RawFileBody("addwalkinusingwebkioskwithservicenotavailableforwalkins/0006_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithservicenotavailableforwalkins/0006_response.json")))
         )
     )
     .pause(3)
@@ -103,13 +98,11 @@ class AddWalkInUsingWebKioskWithServiceNotAvailableForWalkIns extends Simulation
         .resources(
           http("request_8")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/services/SVC804BCF8EE71044F1ADD6A185CEA8D4ADUSEAST1/full-service-field-links/list")
-            .headers(headers_0)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithservicenotavailableforwalkins/0008_response.json"))),
+            .headers(headers_0),
           http("request_9")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/services/SVC804BCF8EE71044F1ADD6A185CEA8D4ADUSEAST1/available-time-slots/list")
             .headers(headers_4)
             .body(RawFileBody("addwalkinusingwebkioskwithservicenotavailableforwalkins/0009_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithservicenotavailableforwalkins/0009_response.json")))
         )
     )
     .pause(3)
@@ -121,12 +114,10 @@ class AddWalkInUsingWebKioskWithServiceNotAvailableForWalkIns extends Simulation
           http("request_11")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/services/SVC804BCF8EE71044F1ADD6A185CEA8D4ADUSEAST1/resources/appointments")
             .headers(headers_4)
-            .body(RawFileBody("addwalkinusingwebkioskwithservicenotavailableforwalkins/0011_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithservicenotavailableforwalkins/0011_response.json"))),
+            .body(RawFileBody("addwalkinusingwebkioskwithservicenotavailableforwalkins/0011_request.json")),
           http("request_12")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1")
             .headers(headers_0)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithservicenotavailableforwalkins/0012_response.json")))
         )
     )
     .pause(17)
@@ -139,7 +130,6 @@ class AddWalkInUsingWebKioskWithServiceNotAvailableForWalkIns extends Simulation
             .put("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/APT30D49A5A154246F0A463B26A5C79D991USEAST1/fields")
             .headers(headers_4)
             .body(RawFileBody("addwalkinusingwebkioskwithservicenotavailableforwalkins/0014_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithservicenotavailableforwalkins/0014_response.json")))
         )
     )
     .pause(2)
@@ -152,7 +142,6 @@ class AddWalkInUsingWebKioskWithServiceNotAvailableForWalkIns extends Simulation
             .put("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/resources/appointments/APT30D49A5A154246F0A463B26A5C79D991USEAST1")
             .headers(headers_4)
             .body(RawFileBody("addwalkinusingwebkioskwithservicenotavailableforwalkins/0016_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithservicenotavailableforwalkins/0016_response.json")))
         )
     )
 

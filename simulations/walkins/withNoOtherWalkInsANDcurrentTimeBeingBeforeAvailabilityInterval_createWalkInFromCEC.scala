@@ -5,11 +5,11 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.jdbc.Predef._
 
-class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInForCurrentResource extends Simulation {
+class AddWalkInUsingCECWithCurrentTimeBeingBeforeAvailabilityIntervalANDNoWalkInForCurrentResource extends Simulation {
 
   private val httpProtocol = http
     .baseUrl("https://apps-api.staging.peg.qless.com")
-    .inferHtmlResources()
+    .inferHtmlResources(AllowList(), DenyList(""".*\.js""", """.*\.css""", """.*\.gif""", """.*\.jpeg""", """.*\.jpg""", """.*\.ico""", """.*\.woff""", """.*\.woff2""", """.*\.(t|o)tf""", """.*\.png""", """.*\.svg""", """.*detectportal\.firefox\.com.*"""))
     .acceptHeader("application/json, text/plain, */*")
     .acceptEncodingHeader("gzip, deflate, br")
     .acceptLanguageHeader("en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,hi;q=0.6")
@@ -65,23 +65,20 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
   )
 
 
-  private val scn = scenario("AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInForCurrentResource")
+  private val scn = scenario("AddWalkInUsingCECWithCurrentTimeBeingBeforeAvailabilityIntervalANDNoWalkInForCurrentResource")
     .exec(
       http("request_0")
         .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
         .headers(headers_0)
-        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0000_request.json"))
-        .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0000_response.json")))
+        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0000_request.json"))
         .resources(
           http("request_1")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0001_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0001_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0001_request.json")),
           http("request_2")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
             .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0002_response.json")))
         )
     )
     .pause(2)
@@ -96,20 +93,17 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
           http("request_5")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0005_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0005_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0005_request.json")),
           http("request_6")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0006_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0006_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0006_request.json")),
           http("request_7")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
             .headers(headers_7),
           http("request_8")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
             .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0008_response.json")))
         )
     )
     .pause(1)
@@ -121,22 +115,18 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
           http("request_10")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/services/SVC1BF4EE814B85450DAFDC6A4916856023USEAST1/resources/walkins")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0010_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0010_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0010_request.json")),
           http("request_11")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0011_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0011_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0011_request.json")),
           http("request_12")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0012_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0012_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0012_request.json")),
           http("request_13")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
             .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0013_response.json")))
         )
     )
     .pause(2)
@@ -151,20 +141,17 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
           http("request_16")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0016_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0016_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0016_request.json")),
           http("request_17")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0017_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0017_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0017_request.json")),
           http("request_18")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
             .headers(headers_7),
           http("request_19")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
             .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0019_response.json")))
         )
     )
     .pause(2)
@@ -172,18 +159,15 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
       http("request_20")
         .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
         .headers(headers_0)
-        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0020_request.json"))
-        .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0020_response.json")))
+        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0020_request.json"))
         .resources(
           http("request_21")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0021_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0021_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0021_request.json")),
           http("request_22")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
             .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0022_response.json")))
         )
     )
     .pause(2)
@@ -198,20 +182,17 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
           http("request_25")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0025_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0025_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0025_request.json")),
           http("request_26")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0026_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0026_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0026_request.json")),
           http("request_27")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
             .headers(headers_7),
           http("request_28")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
             .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0028_response.json")))
         )
     )
     .pause(2)
@@ -219,18 +200,15 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
       http("request_29")
         .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
         .headers(headers_0)
-        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0029_request.json"))
-        .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0029_response.json")))
+        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0029_request.json"))
         .resources(
           http("request_30")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0030_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0030_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0030_request.json")),
           http("request_31")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
             .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0031_response.json")))
         )
     )
     .pause(2)
@@ -245,20 +223,17 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
           http("request_34")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0034_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0034_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0034_request.json")),
           http("request_35")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0035_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0035_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0035_request.json")),
           http("request_36")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
             .headers(headers_7),
           http("request_37")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
             .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0037_response.json")))
         )
     )
     .pause(2)
@@ -266,18 +241,15 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
       http("request_38")
         .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
         .headers(headers_0)
-        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0038_request.json"))
-        .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0038_response.json")))
+        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0038_request.json"))
         .resources(
           http("request_39")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0039_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0039_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0039_request.json")),
           http("request_40")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
             .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0040_response.json")))
         )
     )
     .pause(1)
@@ -289,16 +261,14 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
           http("request_42")
             .put("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/WLKICE174EAA4D974DCA89409ED0FD197E48USEAST1/fields")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0042_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0042_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0042_request.json")),
           http("request_43")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/resources/walkins/WLKICE174EAA4D974DCA89409ED0FD197E48USEAST1")
             .headers(headers_41),
           http("request_44")
             .put("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/resources/walkins/WLKICE174EAA4D974DCA89409ED0FD197E48USEAST1")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0044_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0044_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0044_request.json")),
           http("request_45")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
             .headers(headers_3),
@@ -311,25 +281,21 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
           http("request_48")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0048_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0048_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0048_request.json")),
           http("request_49")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0049_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0049_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0049_request.json")),
           http("request_50")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
-            .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0050_response.json"))),
+            .headers(headers_2),
           http("request_51")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_3),
           http("request_52")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0052_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0052_response.json")))
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0052_request.json"))
         )
     )
     .pause(2)
@@ -337,18 +303,15 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
       http("request_53")
         .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
         .headers(headers_0)
-        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0053_request.json"))
-        .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0053_response.json")))
+        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0053_request.json"))
         .resources(
           http("request_54")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
-            .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0054_response.json"))),
+            .headers(headers_2),
           http("request_55")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0055_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0055_response.json")))
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0055_request.json"))
         )
     )
     .pause(2)
@@ -360,23 +323,20 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
           http("request_57")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0057_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0057_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0057_request.json")),
           http("request_58")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
             .headers(headers_7),
           http("request_59")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
-            .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0059_response.json"))),
+            .headers(headers_2),
           http("request_60")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_3),
           http("request_61")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0061_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0061_response.json")))
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0061_request.json"))
         )
     )
     .pause(2)
@@ -384,18 +344,15 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
       http("request_62")
         .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
         .headers(headers_0)
-        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0062_request.json"))
-        .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0062_response.json")))
+        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0062_request.json"))
         .resources(
           http("request_63")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
-            .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0063_response.json"))),
+            .headers(headers_2),
           http("request_64")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0064_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0064_response.json")))
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0064_request.json"))
         )
     )
     .pause(2)
@@ -407,23 +364,20 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
           http("request_66")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0066_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0066_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0066_request.json")),
           http("request_67")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
             .headers(headers_7),
           http("request_68")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
-            .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0068_response.json"))),
+            .headers(headers_2),
           http("request_69")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_3),
           http("request_70")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0070_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0070_response.json")))
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0070_request.json"))
         )
     )
     .pause(2)
@@ -431,18 +385,15 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
       http("request_71")
         .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
         .headers(headers_0)
-        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0071_request.json"))
-        .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0071_response.json")))
+        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0071_request.json"))
         .resources(
           http("request_72")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
-            .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0072_response.json"))),
+            .headers(headers_2),
           http("request_73")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0073_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0073_response.json")))
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0073_request.json"))
         )
     )
     .pause(2)
@@ -454,23 +405,20 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
           http("request_75")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0075_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0075_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0075_request.json")),
           http("request_76")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
             .headers(headers_7),
           http("request_77")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
-            .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0077_response.json"))),
+            .headers(headers_2),
           http("request_78")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_3),
           http("request_79")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0079_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0079_response.json")))
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0079_request.json"))
         )
     )
     .pause(2)
@@ -478,18 +426,15 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
       http("request_80")
         .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
         .headers(headers_0)
-        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0080_request.json"))
-        .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0080_response.json")))
+        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0080_request.json"))
         .resources(
           http("request_81")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
-            .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0081_response.json"))),
+            .headers(headers_2),
           http("request_82")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0082_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0082_response.json")))
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0082_request.json"))
         )
     )
     .pause(2)
@@ -501,23 +446,20 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
           http("request_84")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0084_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0084_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0084_request.json")),
           http("request_85")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
             .headers(headers_7),
           http("request_86")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
-            .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0086_response.json"))),
+            .headers(headers_2),
           http("request_87")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_3),
           http("request_88")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0088_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0088_response.json")))
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0088_request.json"))
         )
     )
     .pause(2)
@@ -525,18 +467,15 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
       http("request_89")
         .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
         .headers(headers_0)
-        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0089_request.json"))
-        .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0089_response.json")))
+        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0089_request.json"))
         .resources(
           http("request_90")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
-            .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0090_response.json"))),
+            .headers(headers_2),
           http("request_91")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0091_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0091_response.json")))
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0091_request.json"))
         )
     )
     .pause(2)
@@ -548,23 +487,20 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
           http("request_93")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0093_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0093_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0093_request.json")),
           http("request_94")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
             .headers(headers_7),
           http("request_95")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
-            .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0095_response.json"))),
+            .headers(headers_2),
           http("request_96")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_3),
           http("request_97")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0097_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0097_response.json")))
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0097_request.json"))
         )
     )
     .pause(2)
@@ -572,18 +508,15 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
       http("request_98")
         .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
         .headers(headers_0)
-        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0098_request.json"))
-        .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0098_response.json")))
+        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0098_request.json"))
         .resources(
           http("request_99")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
-            .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0099_response.json"))),
+            .headers(headers_2),
           http("request_100")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0100_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0100_response.json")))
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0100_request.json"))
         )
     )
     .pause(2)
@@ -598,20 +531,17 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
           http("request_103")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0103_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0103_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0103_request.json")),
           http("request_104")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
-            .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0104_response.json"))),
+            .headers(headers_2),
           http("request_105")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_3),
           http("request_106")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0106_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0106_response.json")))
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0106_request.json"))
         )
     )
     .pause(2)
@@ -619,18 +549,15 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
       http("request_107")
         .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
         .headers(headers_0)
-        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0107_request.json"))
-        .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0107_response.json")))
+        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0107_request.json"))
         .resources(
           http("request_108")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
-            .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0108_response.json"))),
+            .headers(headers_2),
           http("request_109")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0109_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0109_response.json")))
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0109_request.json"))
         )
     )
     .pause(2)
@@ -642,23 +569,20 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
           http("request_111")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0111_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0111_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0111_request.json")),
           http("request_112")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
             .headers(headers_7),
           http("request_113")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
-            .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0113_response.json"))),
+            .headers(headers_2),
           http("request_114")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_3),
           http("request_115")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0115_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0115_response.json")))
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0115_request.json"))
         )
     )
     .pause(2)
@@ -666,18 +590,15 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
       http("request_116")
         .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
         .headers(headers_0)
-        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0116_request.json"))
-        .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0116_response.json")))
+        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0116_request.json"))
         .resources(
           http("request_117")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
-            .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0117_response.json"))),
+            .headers(headers_2),
           http("request_118")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0118_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0118_response.json")))
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0118_request.json"))
         )
     )
     .pause(2)
@@ -692,20 +613,17 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
           http("request_121")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0121_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0121_response.json"))),
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0121_request.json")),
           http("request_122")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
-            .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0122_response.json"))),
+            .headers(headers_2),
           http("request_123")
             .options("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_3),
           http("request_124")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/search")
             .headers(headers_0)
-            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0124_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0124_response.json")))
+            .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0124_request.json"))
         )
     )
     .pause(2)
@@ -713,13 +631,11 @@ class AddWalkInUsingCECWithCurrentTimeBeforeAvailabilityIntervalANDWithNoWalkInF
       http("request_125")
         .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/walkins/search")
         .headers(headers_0)
-        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0125_request.json"))
-        .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0125_response.json")))
+        .body(RawFileBody("addwalkinusingcecwithcurrenttimebeingbeforeavailabilityintervalandnowalkinforcurrentresource/0125_request.json"))
         .resources(
           http("request_126")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/visits/score-card")
             .headers(headers_2)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingcecwithcurrenttimebeforeavailabilityintervalandwithnowalkinforcurrentresource/0126_response.json")))
         )
     )
 

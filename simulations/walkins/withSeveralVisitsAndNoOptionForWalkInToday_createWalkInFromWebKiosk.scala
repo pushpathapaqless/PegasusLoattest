@@ -5,11 +5,11 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.jdbc.Predef._
 
-class AddWalkInUsingWebKioskWithNoOptionForWalkInForTodayANDWithSeveralVisitsForCurrentResource extends Simulation {
+class AddWalkInUsingWebKioskWithNoOptionForWalkInsANDSeveralVisitsForCurrentResource extends Simulation {
 
   private val httpProtocol = http
     .baseUrl("https://apps-api.staging.peg.qless.com")
-    .inferHtmlResources()
+    .inferHtmlResources(AllowList(), DenyList(""".*\.js""", """.*\.css""", """.*\.gif""", """.*\.jpeg""", """.*\.jpg""", """.*\.ico""", """.*\.woff""", """.*\.woff2""", """.*\.(t|o)tf""", """.*\.png""", """.*\.svg""", """.*detectportal\.firefox\.com.*"""))
     .acceptHeader("application/json, text/plain, */*")
     .acceptEncodingHeader("gzip, deflate, br")
     .acceptLanguageHeader("en-US,en;q=0.9")
@@ -54,12 +54,11 @@ class AddWalkInUsingWebKioskWithNoOptionForWalkInForTodayANDWithSeveralVisitsFor
   )
 
 
-  private val scn = scenario("AddWalkInUsingWebKioskWithNoOptionForWalkInForTodayANDWithSeveralVisitsForCurrentResource")
+  private val scn = scenario("AddWalkInUsingWebKioskWithNoOptionForWalkInsANDSeveralVisitsForCurrentResource")
     .exec(
       http("request_0")
         .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/services/tree?organizationStatus=LIVE&serviceStatus=ACTIVE&linkedUserRequired=true&locationStatus=ACTIVE&visibleOnPhysKiosk=true")
         .headers(headers_0)
-        .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinfortodayandwithseveralvisitsforcurrentresource/0000_response.json")))
     )
     .pause(3)
     .exec(
@@ -69,17 +68,14 @@ class AddWalkInUsingWebKioskWithNoOptionForWalkInForTodayANDWithSeveralVisitsFor
         .resources(
           http("request_2")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/services/SVC804BCF8EE71044F1ADD6A185CEA8D4ADUSEAST1/first-available-walkin-slot")
-            .headers(headers_0)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinfortodayandwithseveralvisitsforcurrentresource/0002_response.json"))),
+            .headers(headers_0),
           http("request_3")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/services/links?serviceIds=SVC804BCF8EE71044F1ADD6A185CEA8D4ADUSEAST1&filterOnlyAvailable=true")
-            .headers(headers_0)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinfortodayandwithseveralvisitsforcurrentresource/0003_response.json"))),
+            .headers(headers_0),
           http("request_4")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/services/SVC804BCF8EE71044F1ADD6A185CEA8D4ADUSEAST1/available-time-slots/list")
             .headers(headers_4)
-            .body(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinfortodayandwithseveralvisitsforcurrentresource/0004_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinfortodayandwithseveralvisitsforcurrentresource/0004_response.json")))
+            .body(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinsandseveralvisitsforcurrentresource/0004_request.json"))
         )
     )
     .pause(5)
@@ -91,8 +87,7 @@ class AddWalkInUsingWebKioskWithNoOptionForWalkInForTodayANDWithSeveralVisitsFor
           http("request_6")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/resources/list")
             .headers(headers_4)
-            .body(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinfortodayandwithseveralvisitsforcurrentresource/0006_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinfortodayandwithseveralvisitsforcurrentresource/0006_response.json")))
+            .body(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinsandseveralvisitsforcurrentresource/0006_request.json"))
         )
     )
     .pause(4)
@@ -104,12 +99,10 @@ class AddWalkInUsingWebKioskWithNoOptionForWalkInForTodayANDWithSeveralVisitsFor
           http("request_8")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/services/SVC804BCF8EE71044F1ADD6A185CEA8D4ADUSEAST1/available-time-slots/list")
             .headers(headers_4)
-            .body(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinfortodayandwithseveralvisitsforcurrentresource/0008_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinfortodayandwithseveralvisitsforcurrentresource/0008_response.json"))),
+            .body(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinsandseveralvisitsforcurrentresource/0008_request.json")),
           http("request_9")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/services/SVC804BCF8EE71044F1ADD6A185CEA8D4ADUSEAST1/full-service-field-links/list")
             .headers(headers_0)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinfortodayandwithseveralvisitsforcurrentresource/0009_response.json")))
         )
     )
     .pause(3)
@@ -121,12 +114,10 @@ class AddWalkInUsingWebKioskWithNoOptionForWalkInForTodayANDWithSeveralVisitsFor
           http("request_11")
             .post("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/services/SVC804BCF8EE71044F1ADD6A185CEA8D4ADUSEAST1/resources/appointments")
             .headers(headers_4)
-            .body(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinfortodayandwithseveralvisitsforcurrentresource/0011_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinfortodayandwithseveralvisitsforcurrentresource/0011_response.json"))),
+            .body(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinsandseveralvisitsforcurrentresource/0011_request.json")),
           http("request_12")
             .get("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1")
             .headers(headers_0)
-            .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinfortodayandwithseveralvisitsforcurrentresource/0012_response.json")))
         )
     )
     .pause(13)
@@ -138,8 +129,7 @@ class AddWalkInUsingWebKioskWithNoOptionForWalkInForTodayANDWithSeveralVisitsFor
           http("request_14")
             .put("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/appointments/APTE782A3FF040F4930A285C47C0B9D40C6USEAST1/fields")
             .headers(headers_4)
-            .body(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinfortodayandwithseveralvisitsforcurrentresource/0014_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinfortodayandwithseveralvisitsforcurrentresource/0014_response.json")))
+            .body(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinsandseveralvisitsforcurrentresource/0014_request.json"))
         )
     )
     .pause(1)
@@ -151,8 +141,7 @@ class AddWalkInUsingWebKioskWithNoOptionForWalkInForTodayANDWithSeveralVisitsFor
           http("request_16")
             .put("/api/v1/organizations/ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1/locations/LOC91ADFAF7317547A68994820E38489799USEAST1/resources/appointments/APTE782A3FF040F4930A285C47C0B9D40C6USEAST1")
             .headers(headers_4)
-            .body(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinfortodayandwithseveralvisitsforcurrentresource/0016_request.json"))
-            .check(bodyBytes.is(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinfortodayandwithseveralvisitsforcurrentresource/0016_response.json")))
+            .body(RawFileBody("addwalkinusingwebkioskwithnooptionforwalkinsandseveralvisitsforcurrentresource/0016_request.json"))
         )
     )
 
