@@ -5,7 +5,12 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.jdbc.Predef._
 
+import com.github.javafaker.Faker
+
+
 class AddWalkInsForToday extends Simulation{
+
+	val fake = new Faker()
 
 	val httpProtocol = http
 	    .baseUrl("https://apps-api.staging.peg.qless.com/api/v1")
@@ -37,15 +42,15 @@ class AddWalkInsForToday extends Simulation{
 					"fields" : [
 						{
 							"internalName": "First Name",
-							"values": ["${firstName}"]
+							"values": ["#{firstName}"]
 						},
 						{
 							"internalName": "Email",
-							"values": ["${email}"]
+							"values": ["#{email}"]
 						},
 						{
 							"internalName": "Phone Number",
-							"values": ["${phoneNumber}"]
+							"values": ["#{phoneNumber}"]
 						}
 					]
 				}""")).asJson
@@ -63,6 +68,15 @@ class AddWalkInsForToday extends Simulation{
 
 
 	val scn = scenario("Create WalkIn")
+		.exec(session => {
+			val firstName = fake.name().firstName()
+			val email = fake.internet().emailAddress()
+			val phoneNumber = "+19196329575"
+
+			println(s"First Name: $firstName \n Phone Number: $phoneNumber \n Email: $email")
+			session.set("firstName", firstName).set("email", email).set("phoneNumber", phoneNumber)
+		})
+
 		.exec(createWalkIn)
 		.exec(session => {
 					val walkInId = session("walkInId").as[String]
@@ -75,7 +89,7 @@ class AddWalkInsForToday extends Simulation{
 
 	setUp(
 		scn.inject(
-			atOnceUsers(1)
+			atOnceUsers(2)
 		)
 	).protocols(httpProtocol)
 }
