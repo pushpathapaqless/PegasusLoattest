@@ -8,7 +8,7 @@ import io.gatling.jdbc.Predef._
 import com.github.javafaker.Faker
 
 
-class AddWalkInsFromCEC extends Simulation{
+class AddWalkInsFromWebKioskAndCompleteServing extends Simulation{
 
 	val fake = new Faker()
 
@@ -21,12 +21,14 @@ class AddWalkInsFromCEC extends Simulation{
 	val organizationId = "ORGBC52D7E91F3E4051973CD9A6CC74D4E1USEAST1"
 	val locationId = "LOC3477C5AAF32E45D59D812F6E7A405DA2USEAST1"
 	val serviceId = "SVCDDA21A92812D465D9F11FA2B9218BE03USEAST1"
+	val stationId = "STN7C7782C1446E4E208C0EC1B5D30EFB5CUSEAST1"
+	val resourceId = "RES7F831964353B4E688967624081486FA2USEAST1"
 
 	val createWalkIn = http("reserveTimeSlot")
 				.post(s"/organizations/${organizationId}/locations/${locationId}/services/${serviceId}/resources/walkins")
 				.header(HttpHeaderNames.ContentType, "application/json")
 				.body(StringBody("""{
-						"source" : "CONSOLE"
+						"source" : "WEB_KIOSK"
 				}""")).asJson
 				.check(status.is(201))
 				.check(jsonPath("$.id").saveAs("walkInId"))
@@ -53,15 +55,50 @@ class AddWalkInsFromCEC extends Simulation{
 				}""")).asJson
 				.check(status.is(200))
 
-
 	val confirmWalkIn = http("confirmWalkIn")
 				.put(s"/organizations/${organizationId}/locations/${locationId}/resources/walkins/#{walkInId}")
 				.header(HttpHeaderNames.ContentType, "application/json")
 				.body(StringBody("""{
 					"action" : "SCHEDULE",
+					"source" : "WEB_KIOSK"
+				}""")).asJson
+				.check(status.is(200))
+
+	val checkIn = http("checkIn")
+				.put(s"/organizations/${organizationId}/locations/${locationId}/resources/walkins/#{walkInId}")
+				.header(HttpHeaderNames.ContentType, "application/json")
+				.body(StringBody("""{
+					"action" : "CHECK_IN",
 					"source" : "CONSOLE"
 				}""")).asJson
 				.check(status.is(200))
+
+	val summonWalkIn = http("summonWalkIn")
+				.put(s"/organizations/${organizationId}/locations/${locationId}/resources/walkins/#{walkInId}")
+				.header(HttpHeaderNames.ContentType, "application/json")
+				.body(StringBody("""{
+					"action" : "SUMMON",
+					"source" : "CONSOLE"
+				}""")).asJson
+				.check(status.is(200))
+
+	val startServingWalkIn = http("startServingWalkIn")
+			.put(s"/organizations/${organizationId}/locations/${locationId}/resources/walkins/#{walkInId}")
+			.header(HttpHeaderNames.ContentType, "application/json")
+			.body(StringBody("""{
+				"action" : "START_SERVING",
+				"source" : "CONSOLE"
+			}""")).asJson
+			.check(status.is(200))
+
+	val endServingWalkIn = http("endServingWalkIn")
+			.put(s"/organizations/${organizationId}/locations/${locationId}/resources/walkins/#{walkInId}")
+			.header(HttpHeaderNames.ContentType, "application/json")
+			.body(StringBody("""{
+				"action" : "END_SERVING",
+				"source" : "CONSOLE"
+			}""")).asJson
+			.check(status.is(200))
 
 
 	val scn = scenario("Create WalkIn")
@@ -84,10 +121,19 @@ class AddWalkInsFromCEC extends Simulation{
 
 		.exec(updateWalkInFields)
 		.exec(confirmWalkIn)
+		//.pause(1)
+		.exec(checkIn)
+		//.pause(1)
+		.exec(summonWalkIn)
+		//.pause(1)
+		.exec(startServingWalkIn)
+		//.pause(1)
+		.exec(endServingWalkIn)
+		//.pause(1)
 
 	setUp(
 		scn.inject(
-			atOnceUsers(2)
+			atOnceUsers(1)
 		)
 	).protocols(httpProtocol)
 }
